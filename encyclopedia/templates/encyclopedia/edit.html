@@ -1,0 +1,38 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+    Edit {{title}}
+{% endblock title %}
+
+
+{% block body %}
+    <h1 style="text-align: center;">Editing the {{title}} Page</h1>
+    <div class="container">
+        {% if error %}
+            <h2 style="text-align: center;">{{error}}</h2>
+        {% else %}
+            {% if message %}
+                <div class="alert alert-danger" role="alert" style="text-align: center;">
+                    {{message}}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form">
+                    <div>
+                        <label for="content">Content</label>
+                        <textarea 
+                            name="content" 
+                            id="content"
+                            class="form-control" 
+                            cols="30" 
+                            rows="10"
+                            placeholder="Rewrite the page content with markdown."
+                        >{% if content%}{{content}}{%endif%}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Save</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock body %}
